@@ -1,0 +1,23 @@
+.search-bar {
+    background-color: black;
+    padding: 8px;
+
+    .default-gap {
+        gap: 8px;
+    }
+}
+
+.align-cards {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 45%;
+    gap: 8px;
+
+    & > * {
+        cursor: pointer;
+    }
+}
+
+.weather-info {
+    gap: 16px;
+}
