@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, firstValueFrom } from 'rxjs';
+import { CurrentWeather } from '../models/currentWeather.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,13 +11,13 @@ export class CurrentWeatherService {
 
     constructor(private http: HttpClient) { }
 
-    getCurrentWeather(city: string) {
+    getCurrentWeather(city: string): Promise<CurrentWeather> {
         let params = new HttpParams();
 
-        /* params = params.append('access_key', environment.accessKey); */
         params = params.append('query', city);
 
-        return this.http.get("http://api.weatherstack.com/current", { params });
+        const observable = this.http.get(environment.baseUrl + "/current", { params }) as Observable<CurrentWeather>;
+        return firstValueFrom(observable);
 
     }
 }

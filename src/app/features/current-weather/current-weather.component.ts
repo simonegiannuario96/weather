@@ -10,7 +10,7 @@ import { CurrentWeatherService } from 'src/app/services/current-weather.service'
 export class CurrentWeatherComponent implements OnInit {
     protected city: string = '';
     protected weatherFavourite: CurrentWeather[] = [];
-    protected selectedCity: CurrentWeather | undefined = undefined;
+    protected selectedCity!: CurrentWeather;
     protected favouriteCity: string[] = [];
 
     protected getWeatherTitle(weather: CurrentWeather): string {
@@ -26,14 +26,13 @@ export class CurrentWeatherComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.favouriteCity.forEach(city => {
-            this.findWeather(city);
+        this.favouriteCity.forEach(async city => {
+            await this.findWeather(city);
         })
     }
 
-    protected findWeather(city?: string) {
-        this.currentWeatherService.getCurrentWeather(city ? city : this.city).subscribe(result => {
-            this.weatherFavourite.push(JSON.parse(JSON.stringify(result)));
-        })
+    protected async findWeather(city?: string) {
+        const weather = await this.currentWeatherService.getCurrentWeather(city ? city : this.city);
+        this.weatherFavourite.push(weather);
     }
 }

@@ -13,7 +13,7 @@
 
         <div class="align-cards">
             <p-card (click)="selectedCity = weather" *ngFor="let weather of weatherFavourite"
-                [header]="getWeatherTitle(weather)">
+                [style.maxHeight]="'200px'" [header]="getWeatherTitle(weather)">
                 <div class="row" *ngIf="weather && weather.current">
                     <div class="col-sm-3 d-flex align-items-center weather-info">
                         <img [src]="weather.current.weather_icons[0]"> {{weather.current.weather_descriptions[0]
